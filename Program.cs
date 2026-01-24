@@ -1,6 +1,6 @@
-using PlanificadorDeHorarios.Api.Common;
+using PlanificadorDeHorarios.Api.Extensions;
 using PlanificadorDeHorarios.Api.Infraestructure;
-using PlanificadorDeHorarios.Api.Infraestructure.Extensions;
+using PlanificadorDeHorarios.Api.Ports;
 
 var builder = WebApplication.CreateBuilder(args);
 

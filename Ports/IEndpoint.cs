@@ -1,4 +1,4 @@
-namespace PlanificadorDeHorarios.Api.Common
+namespace PlanificadorDeHorarios.Api.Ports
 {
     public interface IEndpoint
     {

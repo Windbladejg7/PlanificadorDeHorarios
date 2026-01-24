@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using PlanificadorDeHorarios.Api.Common;
 using PlanificadorDeHorarios.Api.Domain;
+using PlanificadorDeHorarios.Api.Ports;
 
 namespace PlanificadorDeHorarios.Api.Infraestructure
 {

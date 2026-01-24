@@ -1,5 +1,6 @@
 ﻿using PlanificadorDeHorarios.Api.Common;
 using PlanificadorDeHorarios.Api.Domain;
+using PlanificadorDeHorarios.Api.Ports;
 
 namespace PlanificadorDeHorarios.Api.Features
 {

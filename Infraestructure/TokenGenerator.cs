@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using PlanificadorDeHorarios.Api.Domain;
 using Microsoft.IdentityModel.JsonWebTokens;
+using PlanificadorDeHorarios.Api.Ports;
 
 namespace PlanificadorDeHorarios.Api.Infraestructure
 {

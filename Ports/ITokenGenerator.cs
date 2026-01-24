@@ -1,6 +1,6 @@
 ﻿using PlanificadorDeHorarios.Api.Domain;
 
-namespace PlanificadorDeHorarios.Api.Common
+namespace PlanificadorDeHorarios.Api.Ports
 {
     public interface ITokenGenerator
     {
