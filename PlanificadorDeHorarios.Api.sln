@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11312.151 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanificadorDeHorarios.Api", "PlanificadorDeHorarios.Api.csproj", "{9E589A4C-769E-5027-F772-3DA117A3FCC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E589A4C-769E-5027-F772-3DA117A3FCC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E589A4C-769E-5027-F772-3DA117A3FCC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E589A4C-769E-5027-F772-3DA117A3FCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E589A4C-769E-5027-F772-3DA117A3FCC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8794816E-99FF-40C2-9E39-C64F0678237E}
+	EndGlobalSection
+EndGlobal
