@@ -12,7 +12,9 @@ namespace PlanificadorDeHorarios.Api.Features
         {
             app.MapGet("/register", (RegistrarUsuarioRequest request, RegistrarUsuarioHandler handler) =>
             {
-                handler.Handle(request);
+                var result = handler.Handle(request);
+
+                return result.IsSuccess ? Results.Ok() : Results.Conflict(new {message = result.Error});
             });
         }
     }
