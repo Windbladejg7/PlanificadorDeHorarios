@@ -9,9 +9,9 @@ namespace PlanificadorDeHorarios.Api.Features
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("/login", (LoginRequest request, LoginHandler handler)=>
+            app.MapGet("/login", async (LoginRequest request, LoginHandler handler)=>
             {
-                var result = handler.Handle(request);
+                var result = await handler.Handle(request);
 
                 return result.IsSuccess ? Results.Ok(new { token = result.Value }) : Results.Unauthorized();
             });
@@ -31,9 +31,9 @@ namespace PlanificadorDeHorarios.Api.Features
             _tokenGenerator = tokenGenerator;
         }
 
-        public Result<string> Handle(LoginRequest request)
+        public async Task<Result<string>> Handle(LoginRequest request)
         {
-            Usuario usuario = _repositorio.BuscarPorEmail(request.email);
+            Usuario usuario = await _repositorio.BuscarPorEmailAsync(request.email);
 
             if (usuario == null)
                 return Result<string>.Failure("Usuario no existe");

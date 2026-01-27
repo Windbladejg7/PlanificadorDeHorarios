@@ -10,9 +10,9 @@ namespace PlanificadorDeHorarios.Api.Features
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("/register", (RegistrarUsuarioRequest request, RegistrarUsuarioHandler handler) =>
+            app.MapGet("/register", async (RegistrarUsuarioRequest request, RegistrarUsuarioHandler handler) =>
             {
-                var result = handler.Handle(request);
+                var result = await handler.Handle(request);
 
                 return result.IsSuccess ? Results.Ok() : Results.Conflict(new {message = result.Error});
             });
@@ -30,9 +30,10 @@ namespace PlanificadorDeHorarios.Api.Features
             _passwordHelper = passwordHelper;
         }
 
-        public Result<string> Handle(RegistrarUsuarioRequest request) 
+        public async Task<Result<string>> Handle(RegistrarUsuarioRequest request) 
         {
-            if (_repositorio.VerificarSiExistePorEmail(request.email))
+            bool usuarioExiste = await _repositorio.VerificarSiExistePorEmailAsync(request.email);
+            if (usuarioExiste)
                 return Result<string>.Failure("El usuario ya se encuentra registrado");
 
             string password = _passwordHelper.HashearPassword(request.password);
@@ -42,7 +43,7 @@ namespace PlanificadorDeHorarios.Api.Features
                 Email = request.email,
                 HashPassword = password
             };
-            _repositorio.AgregarUsuario(usuario);
+            await _repositorio.AgregarUsuarioAsync(usuario);
 
             return Result<string>.Success("Usuario registrado exitosamente");
         }
