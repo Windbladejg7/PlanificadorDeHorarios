@@ -2,6 +2,6 @@
 {
     public class JwtOptions
     {
-        public string Secreto { get;}
+        public string Secreto { get; set; }
     }
 }

@@ -5,8 +5,8 @@ namespace PlanificadorDeHorarios.Api.Common
         public bool IsSuccess { get; }
         public T? Value { get; }
         public string Error { get; }
-        public bool IsFailure = !IsSuccess;
 
+        public bool IsFailure => !IsSuccess;
 
         private Result(bool success, T? value, string error)
         {

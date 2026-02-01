@@ -1,4 +1,5 @@
-﻿using PlanificadorDeHorarios.Api.Common;
+﻿using Microsoft.AspNetCore.Mvc;
+using PlanificadorDeHorarios.Api.Common;
 using PlanificadorDeHorarios.Api.Domain;
 using PlanificadorDeHorarios.Api.Ports;
 
@@ -10,16 +11,16 @@ namespace PlanificadorDeHorarios.Api.Features
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("/register", async (RegistrarUsuarioRequest request, RegistrarUsuarioHandler handler) =>
+            app.MapPost("/register", async (RegistrarUsuarioRequest request, [FromServices] RegistrarUsuarioHandler handler) =>
             {
                 var result = await handler.Handle(request);
 
-                return result.IsSuccess ? Results.Ok() : Results.Conflict(new {message = result.Error});
+                return result.IsSuccess ? Results.Ok(result.Value) : Results.Conflict(new {message = result.Error});
             });
         }
     }
 
-    public class RegistrarUsuarioHandler 
+    public class RegistrarUsuarioHandler : IHandler
     {
         private IUsuarioRepositorio _repositorio;
         private IPasswordHelper _passwordHelper;

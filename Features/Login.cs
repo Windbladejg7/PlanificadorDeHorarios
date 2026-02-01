@@ -1,4 +1,5 @@
-﻿using PlanificadorDeHorarios.Api.Common;
+﻿using Microsoft.AspNetCore.Mvc;
+using PlanificadorDeHorarios.Api.Common;
 using PlanificadorDeHorarios.Api.Domain;
 using PlanificadorDeHorarios.Api.Ports;
 
@@ -9,7 +10,7 @@ namespace PlanificadorDeHorarios.Api.Features
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("/login", async (LoginRequest request, LoginHandler handler)=>
+            app.MapPost("/login", async (LoginRequest request, [FromServices] LoginHandler handler)=>
             {
                 var result = await handler.Handle(request);
 
