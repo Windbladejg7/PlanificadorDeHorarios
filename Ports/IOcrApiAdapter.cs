@@ -1,10 +1,9 @@
-﻿using Google.Cloud.DocumentAI.V1;
-using PlanificadorDeHorarios.Api.Common;
+﻿using PlanificadorDeHorarios.Api.Domain;
 
 namespace PlanificadorDeHorarios.Api.Ports
 {
     public interface IOcrApiAdapter
     {
-        public Task<Document> OcrAsync(IFormFile file);
+        public Task<List<Materia>> OcrAsync(IFormFile file);
     }
 }

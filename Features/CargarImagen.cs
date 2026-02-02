@@ -1,7 +1,7 @@
 ﻿using PlanificadorDeHorarios.Api.Ports;
 using PlanificadorDeHorarios.Api.Common;
+using PlanificadorDeHorarios.Api.Domain;
 using Microsoft.AspNetCore.Mvc;
-using Google.Cloud.DocumentAI.V1;
 
 namespace PlanificadorDeHorarios.Api.Features
 {
@@ -13,7 +13,7 @@ namespace PlanificadorDeHorarios.Api.Features
             app.MapPost("imagen/subir", async ([FromForm]CargarImagenRequest request, [FromServices] CargarImagenHandler handler) =>
             {
                 var result = await handler.Handle(request);
-                return result.IsSuccess ? Results.Ok() : Results.InternalServerError();
+                return result.IsSuccess ? Results.Ok(result.Value) : Results.InternalServerError();
             }).DisableAntiforgery();
         }
     }
@@ -27,14 +27,14 @@ namespace PlanificadorDeHorarios.Api.Features
             this._ocrApi = ocrApi;
         }
 
-        public async Task<Result<Document>> Handle(CargarImagenRequest request)
+        public async Task<Result<List<Materia>>> Handle(CargarImagenRequest request)
         {
             var respuesta = await _ocrApi.OcrAsync(request.file);
 
             if (respuesta == null)
-                return Result<Document>.Failure("Error al extraer los datos");
+                return Result<List<Materia>>.Failure("Error al extraer los datos");
 
-            return Result<Document>.Success(respuesta);
+            return Result<List<Materia>>.Success(respuesta);
         }
     }
 }
