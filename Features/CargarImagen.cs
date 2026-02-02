@@ -13,7 +13,7 @@ namespace PlanificadorDeHorarios.Api.Features
             app.MapPost("imagen/subir", async ([FromForm]CargarImagenRequest request, [FromServices] CargarImagenHandler handler) =>
             {
                 var result = await handler.Handle(request);
-                return result.IsSuccess ? Results.Ok(result.Value) : Results.InternalServerError();
+                return result.IsSuccess ? Results.Ok() : Results.InternalServerError();
             }).DisableAntiforgery();
         }
     }
