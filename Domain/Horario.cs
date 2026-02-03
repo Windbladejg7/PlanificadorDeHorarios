@@ -4,9 +4,9 @@
     {
         public Dictionary<string, Aula> selecciones { get; set; }
 
-        public Horario(Dictionary<string, Aula> dictionary)
+        public Horario(Dictionary<string, Aula> selecciones)
         {
-            selecciones = dictionary
+            this.selecciones = selecciones
                 .ToDictionary(pair => pair.Key, pair => pair.Value);
         }
 

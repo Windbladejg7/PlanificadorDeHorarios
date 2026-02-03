@@ -26,7 +26,8 @@ namespace PlanificadorDeHorarios.Api.Infraestructure
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Email, usuario.Email)
+                    new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                    new Claim(ClaimTypes.Email, usuario.Email)
                 }),
                 SigningCredentials = sign
             };
