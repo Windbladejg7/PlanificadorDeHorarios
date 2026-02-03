@@ -10,7 +10,7 @@
             return horariosGenerados;
         }
 
-        public void backtrack(int index, List<Materia> materias, List<BloqueHorario> bloquesOcupados, Dictionary<Materia, Aula> seleccion)
+        public void backtrack(int index, List<Materia> materias, List<BloqueHorario> bloquesOcupados, Dictionary<String, Aula> seleccion)
         {
             if(index == materias.Count)
             {
@@ -24,14 +24,14 @@
             { 
                 if(!HayConflicto(aula, bloquesOcupados))
                 {
-                    seleccion.Add(materia, aula);
+                    seleccion.Add(materia.Nombre, aula);
                     foreach(var bloque in aula.Bloques)
                     {
                         bloquesOcupados.Add(bloque);
                     }
 
                     backtrack(index + 1, materias, bloquesOcupados, seleccion);
-                    seleccion.Remove(materia);
+                    seleccion.Remove(materia.Nombre);
                     foreach(var bloque in aula.Bloques)
                     {
                         bloquesOcupados.RemoveAt(bloquesOcupados.Count - 1);

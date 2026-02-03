@@ -4,14 +4,21 @@ using PlanificadorDeHorarios.Api.Ports;
 
 namespace PlanificadorDeHorarios.Api.Features
 {
-    public record GenerarHorariosRequest();
+    public record GenerarHorariosRequest(List<Materia> materias);
     public class GenerarHorariosEndpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("/horarios", async (GenerarHorariosRequest request, [FromServices] GenerarHorarioHandler handler) =>
+            app.MapPost("/horarios", (GenerarHorariosRequest request, [FromServices] GenerarHorarioHandler handler) =>
             {
-                await handler.Handle(request);
+                try
+                {
+                    var response = handler.Handle(request);
+                    return Results.Ok(response);
+                }catch(Exception ex)
+                {
+                    return Results.InternalServerError();
+                }
             });
         }
     }
@@ -25,9 +32,9 @@ namespace PlanificadorDeHorarios.Api.Features
             this._generador = generador;
         }
 
-        public async Task Handle(GenerarHorariosRequest request)
+        public List<Horario> Handle(GenerarHorariosRequest request)
         {
-            
+            return _generador.generar(request.materias);
         }
     }
 }

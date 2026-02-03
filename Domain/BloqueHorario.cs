@@ -21,7 +21,12 @@
 
         private bool HorasNoIncluidas(BloqueHorario bloque)
         {
-            return HoraInicio > bloque.HoraFin || HoraFin < bloque.HoraInicio;
+            return HoraInicio >= bloque.HoraFin || HoraFin <= bloque.HoraInicio;
+        }
+
+        public override string ToString()
+        {
+            return $"{Dia}, {HoraInicio} - {HoraFin}";
         }
     }
 }

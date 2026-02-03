@@ -2,19 +2,17 @@
 {
     public class Horario
     {
-        private Dictionary<Materia, Aula> horario;
-        
-        public Horario(Dictionary<Materia, Aula> horario)
+        public Dictionary<string, Aula> selecciones { get; set; }
+
+        public Horario(Dictionary<string, Aula> dictionary)
         {
-            this.horario = horario.ToDictionary(
-                pair => pair.Key, 
-                pair => pair.Value
-                );
+            selecciones = dictionary
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
         }
 
-        public void Agregar(Materia materia, Aula aula)
+        public void Agregar(string materia, Aula aula)
         {
-            horario.Add(materia, aula);
+            selecciones.Add(materia, aula);
         }
     }
 }
