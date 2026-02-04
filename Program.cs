@@ -36,10 +36,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddCors(options =>{
     options.AddPolicy("PlanificadorPolicy", policy =>
     {
-        policy.WithOrigins("https://planificadordehorariosweb.onrender.com")
+        policy.AllowAnyOrigin()
             .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
+            .AllowAnyMethod();
     });
 });
 
