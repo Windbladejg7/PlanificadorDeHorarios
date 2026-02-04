@@ -33,10 +33,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddCors(options =>{
+    options.AddPolicy("PlanificadorPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+app.UseCors("PlanificadorPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapEndpoints();

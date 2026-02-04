@@ -2,7 +2,12 @@
 {
     public class GeneradorDeHorarios
     {
-        static List<Horario> horariosGenerados = new List<Horario>();
+        List<Horario> horariosGenerados;
+
+        public GeneradorDeHorarios()
+        {
+            this.horariosGenerados = new();
+        }
 
         public List<Horario> generar(List<Materia> materias)
         {
@@ -21,8 +26,8 @@
             Materia materia = materias[index];
 
             foreach (var aula in materia.OpcionesDeAula)
-            { 
-                if(!HayConflicto(aula, bloquesOcupados))
+            {
+                if (!HayConflicto(aula, bloquesOcupados))
                 {
                     seleccion.Add(materia.Nombre, aula);
                     foreach(var bloque in aula.Bloques)

@@ -4,7 +4,7 @@ namespace PlanificadorDeHorarios.Api.Ports
 {
     public interface IHorarioRepositorio
     {
-        Task GuardarHorariosGenerados(int idUsuario, List<Horario> horariosGenerados);
-        Task<List<List<Horario>>> ObtenerHorariosGuardados(int idUsuario);
+        Task GuardarHorario(int idUsuario, Horario horario);
+        Task<List<Horario>> ObtenerHorariosGuardados(int idUsuario);
     }
 }

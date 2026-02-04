@@ -1,5 +1,4 @@
-﻿using Microsoft.IdentityModel.JsonWebTokens;
-using PlanificadorDeHorarios.Api.Ports;
+﻿using PlanificadorDeHorarios.Api.Ports;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using PlanificadorDeHorarios.Api.Domain;
@@ -30,16 +29,16 @@ namespace PlanificadorDeHorarios.Api.Features
             _repositorio = repositorio;
         }
 
-        public async Task<Result<List<List<Horario>>>> Handle(int idUsuario)
+        public async Task<Result<List<Horario>>> Handle(int idUsuario)
         {
             try
             {
                 var result = await _repositorio.ObtenerHorariosGuardados(idUsuario);
-                return Result<List<List<Horario>>>.Success(result);
+                return Result<List<Horario>>.Success(result);
             }
             catch(Exception ex)
             {
-                return Result<List<List<Horario>>>.Failure("Error la cargar los horarios " + ex.Message);
+                return Result<List<Horario>>.Failure("Error la cargar los horarios " + ex.Message);
             }
         }
     }

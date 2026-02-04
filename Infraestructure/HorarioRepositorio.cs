@@ -13,7 +13,7 @@ namespace PlanificadorDeHorarios.Api.Infraestructure
             _connectionString = configuration.GetConnectionString("Default");
         }
 
-        public async Task GuardarHorariosGenerados(int idUsuario, List<Horario> horarios)
+        public async Task GuardarHorario(int idUsuario, Horario horario)
         {
             await using var connection = new NpgsqlConnection(_connectionString);
             await connection.OpenAsync();
@@ -22,14 +22,14 @@ namespace PlanificadorDeHorarios.Api.Infraestructure
 
             await using var cmd = new NpgsqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("idusuario", idUsuario);
-            cmd.Parameters.AddWithValue("data", JsonSerializer.Serialize(horarios));
+            cmd.Parameters.AddWithValue("data", JsonSerializer.Serialize(horario));
 
             await cmd.ExecuteNonQueryAsync();
         }
 
-        public async Task<List<List<Horario>>> ObtenerHorariosGuardados(int idUsuario)
+        public async Task<List<Horario>> ObtenerHorariosGuardados(int idUsuario)
         {
-            var horarios = new List<List<Horario>>();
+            var horarios = new List<Horario>();
 
             await using var connection = new NpgsqlConnection(_connectionString);
             await connection.OpenAsync();
@@ -44,7 +44,8 @@ namespace PlanificadorDeHorarios.Api.Infraestructure
             while (await reader.ReadAsync())
             {
                 string jsonString = reader.GetString(0);
-                horarios.Add(JsonSerializer.Deserialize<List<Horario>>(jsonString));
+                Console.WriteLine(jsonString);
+                horarios.Add(JsonSerializer.Deserialize<Horario>(jsonString));
             }
 
             return horarios;

@@ -2,19 +2,22 @@
 using PlanificadorDeHorarios.Api.Domain;
 using Microsoft.AspNetCore.Mvc;
 using PlanificadorDeHorarios.Api.Common;
+using System.Security.Claims;
 
 namespace PlanificadorDeHorarios.Api.Features
 {
-    public record GuardarHorarioRequest(int idUsuario, List<Horario> horarios);
+    public record GuardarHorarioRequest(Horario horario);
     public class GuardarHorarioEndpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app) 
         {
-            app.MapPost("horario/guardar", async (GuardarHorarioRequest request, [FromServices] GuardarHorarioHandler handler) =>
+            app.MapPost("horarios/guardar", async (ClaimsPrincipal usuario, GuardarHorarioRequest request, [FromServices] GuardarHorarioHandler handler) =>
             {
-                var result = await handler.Handle(request);
+                int idUsuario = int.Parse(usuario.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+                Console.WriteLine(idUsuario);
+                var result = await handler.Handle(idUsuario, request);
                 return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
-            });
+            }).RequireAuthorization();
         }
     }
 
@@ -27,15 +30,15 @@ namespace PlanificadorDeHorarios.Api.Features
             _repositorio = repositorio;
         }
 
-        public async Task<Result<string>> Handle(GuardarHorarioRequest request)
+        public async Task<Result<string>> Handle(int idUsuario, GuardarHorarioRequest request)
         {
             try
             {
-                await _repositorio.GuardarHorariosGenerados(request.idUsuario, request.horarios);
-                return Result<string>.Success("Horarios guardados exitosamente");
+                await _repositorio.GuardarHorario(idUsuario, request.horario);
+                return Result<string>.Success("Horario guardado exitosamente");
             }catch(Exception ex)
             {   
-                return Result<string>.Failure("Error al guardar horarios "+ex.Message);
+                return Result<string>.Failure("Error al guardar horario "+ex.Message);
             }
         }
     }

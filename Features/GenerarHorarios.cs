@@ -17,6 +17,7 @@ namespace PlanificadorDeHorarios.Api.Features
                     return Results.Ok(response);
                 }catch(Exception ex)
                 {
+                    Console.WriteLine(ex.Message + ex.StackTrace);
                     return Results.InternalServerError();
                 }
             });
