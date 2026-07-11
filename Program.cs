@@ -17,6 +17,7 @@ builder.Services.AddHandlers();
 builder.Services.AddScoped<IOcrApiAdapter, DocumentAiApiAdapter>();
 builder.Services.AddScoped<GeneradorDeHorarios>();
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
+builder.Services.Configure<GoogleCloudOptions>(builder.Configuration.GetSection("GoogleCloud"));
 
 var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JwtOptions>();
 

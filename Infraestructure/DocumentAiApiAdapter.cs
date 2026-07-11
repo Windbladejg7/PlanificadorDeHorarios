@@ -1,5 +1,7 @@
 ﻿using Google.Cloud.DocumentAI.V1;
 using Google.Protobuf;
+using Microsoft.Extensions.Options;
+using PlanificadorDeHorarios.Api.Common;
 using PlanificadorDeHorarios.Api.Domain;
 using PlanificadorDeHorarios.Api.Ports;
 
@@ -7,15 +9,21 @@ namespace PlanificadorDeHorarios.Api.Infraestructure
 {
     public class DocumentAiApiAdapter : IOcrApiAdapter
     {
+        private readonly GoogleCloudOptions _options;
+
+        public DocumentAiApiAdapter(IOptions<GoogleCloudOptions> options)
+        {
+            _options = options.Value;
+        }
+
         public async Task<List<Materia>> OcrAsync(IFormFile file)
         {
-            string processorId = "d938229754c2ed4e";
             DocumentProcessorServiceClient cliente = await DocumentProcessorServiceClient.CreateAsync();
 
             ProcessorName processorName = new ProcessorName(
-                "apidocumentai",
-                "us",
-                processorId
+                _options.ProjectId,
+                _options.Location,
+                _options.ProcessorId
                 );
 
             MemoryStream ms = new MemoryStream();
