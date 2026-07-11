@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR NOT NULL,
+    email VARCHAR UNIQUE NOT NULL,
+    password VARCHAR NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS horarios (
+    id SERIAL PRIMARY KEY,
+    idUsuario INTEGER NOT NULL REFERENCES users(id),
+    data JSONB NOT NULL
+);
